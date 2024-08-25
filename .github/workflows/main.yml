@@ -92,16 +92,12 @@ jobs:
     - name: Build the Docker image for Fastapi app
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USR }}
-      run: cd bikeshare_project && docker build . -f Dockerfile -t $DOCKER_USER/bikeshare_model_api:Latest
+      run: cd bikeshare_project && docker build . -f Dockerfile -t $DOCKER_USER/bikeshare_model_api:Akash
       
-    - name: Tag the Docker Image
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USR }}
-      run: docker tag bikeshare_model_api $DOCKER_USER/bikeshare_model_api:Latest
     - name: Push the Docker Image
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USR }}
-      run: docker push $DOCKER_USER/bikeshare_model_api:Latest
+      run: docker push $DOCKER_USER/bikeshare_model_api:Akash
 
     - name: Logout to Docker hub
       run: docker logout
