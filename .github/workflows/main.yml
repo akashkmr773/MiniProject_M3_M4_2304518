@@ -101,3 +101,20 @@ jobs:
 
     - name: Logout to Docker hub
       run: docker logout
+
+  deploy:
+      runs-on: self-hosted
+      needs: [train, test, build, push-image]
+      steps:
+      - name: Pull Docker Image
+        env: 
+          DOCKER_USER: ${{ secrets.DOCKER_USR }}
+        run: sudo docker pull $DOCKER_USER/bikeshare_model_api:Akash
+  
+      - name: Delete Old Docker Container
+        run: sudo docker rm -f bikeshare-fastapi-container || true
+  
+      - name: Run Docker Container
+        env: 
+            DOCKER_USER: ${{ secrets.DOCKER_USR }}
+        run: sudo docker run -it -d -p 8001:8001 --name bikeshare-fastapi-container $DOCKER_USER/bikeshare_model_api:Akash
