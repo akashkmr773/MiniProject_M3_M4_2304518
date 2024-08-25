@@ -97,7 +97,7 @@ jobs:
     - name: Push the Docker Image
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USR }}
-      run: docker push $DOCKER_USER/bikeshare_model_api
+      run: docker push $DOCKER_USER/bikeshare_model_api:Akash
 
     - name: Logout to Docker hub
       run: docker logout
